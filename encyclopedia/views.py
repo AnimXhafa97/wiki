@@ -16,7 +16,7 @@ def get_page(request, title):
 
     context = {
         'title': title,
-        'content': page,
+        'content': markdown2.markdown(page),
     }
 
     if page is None:
@@ -33,11 +33,11 @@ def save(request):
     title = request.GET.get('title')
     content = request.GET.get('content')
 
-    if title or content in util.list_entries():
-        return render(request, 'encyclopedia/error.html', {'title':title})
+    if title in util.list_entries():
+        return render(request, "encyclopedia/error.html", {'title':title})
     else:
         util.save_entry(title, content)
-        HttpResponseRedirect('/')
+        return render(request, 'encyclopedia/title.html', {'title':title, 'content':content})
 
 
 def new_page(request):

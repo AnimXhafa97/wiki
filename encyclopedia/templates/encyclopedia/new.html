@@ -8,7 +8,7 @@ Encyclopedia
 {% block body %}
 
 <div class="container">
-  <form action="{% url 'save' %}" method="post">
+  <form action="{% url 'save' %}" method="GET">
     {% csrf_token %}
 
     <label>Post title</label>
