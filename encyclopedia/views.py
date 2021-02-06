@@ -16,7 +16,7 @@ def get_page(request, title):
 
     context = {
         'title': title,
-        'content': markdown2.markdown(page),
+        'content': markdown2.markdown(page)
     }
 
     if page is None:
@@ -26,8 +26,8 @@ def get_page(request, title):
 
 
 
-def edit(request):
-    pass
+def edit(request, id):
+    return render(request, 'encyclopedia/edit.html', {'title':id})
 
 def save(request):
     title = request.GET.get('title')
