@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from builtins import any
 from . import util
@@ -32,12 +32,8 @@ def edit(request):
 def save(request):
     title = request.GET.get('title')
     content = request.GET.get('content')
-
-    if title or content in util.list_entries():
-        return render(request, 'encyclopedia/error.html', {'title':title})
-    else:
-        util.save_entry(title, content)
-        HttpResponseRedirect('/')
+    util.save_entry(title, content)
+    return HttpResponseRedirect(reverse('index'))
 
 
 def new_page(request):
